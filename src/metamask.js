@@ -1,4 +1,3 @@
-const web3 = global.web3;
 let isCheckInstall = false;
 let isCheckLogin = false;
 let cbs = {
@@ -7,15 +6,11 @@ let cbs = {
 }
 
 export default {
-  getTxParams,
-  viewAddressPath: 'https://rinkeby.etherscan.io/address',
-  viewTxPath: 'https://rinkeby.etherscan.io/tx',
   onCheckInstall,
   onCheckLogin,
   checkMetamask,
   metamaskInstalled,
-  metamaskLogin,
-  getNetwork
+  metamaskLogin
 }
 
 function onCheckInstall(cb) {
@@ -73,49 +68,4 @@ function metamaskLogin() {
     return true;
   }
   return false;
-}
-
-function getTxParams(publicKey, to, value, data, gasPrice, web3, cb) {
-  web3.eth.getTransactionCount(publicKey, (err, data) => {
-    if (err) throw err;
-
-    const params = {
-      from: publicKey,
-      nonce: web3.toHex(data),
-      gasPrice: web3.toHex(gasPrice),
-      to,
-      value: web3.toHex(value),
-      data, //: web3.toHex(data),
-      // EIP 155 chainId - mainnet: 1, ropsten: 3
-      chainId: 4
-    };
-
-    return cb(null, params);
-  });
-}
-
-function getNetwork(cb) {
-  let net = 'Unknown'
-
-  web3.version.getNetwork((err, netId) => {
-    switch (netId) {
-      case "1":
-        net = "Mainnet";
-        break;
-      case "2":
-        net = "Morden";
-        break;
-      case "3":
-        net = "Ropsten";
-        break;
-      case "4":
-        net = "Rinkeby";
-        break;
-      case "42":
-        net = "Kovan";
-        break;
-    }
-
-    return cb(null, net);
-  });
 }

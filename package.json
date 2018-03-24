@@ -1,11 +1,18 @@
 {
   "name": "web3-helper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Helper for web3.js",
-  "main": "web3-helper.js",
+  "main": "dist/web3-helper.js",
   "scripts": {
+    "install": "npm run build",
+    "build": "babel src -o dist/web3-helper.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
 }
