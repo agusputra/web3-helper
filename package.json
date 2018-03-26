@@ -4,7 +4,7 @@
   "description": "Helper for web3.js",
   "main": "dist/web3-helper.js",
   "scripts": {
-    "build": "rollup -c --environment BUILD:production",
+    "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
