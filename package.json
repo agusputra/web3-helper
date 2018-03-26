@@ -2,17 +2,19 @@
   "name": "web3-helper",
   "version": "1.1.1",
   "description": "Helper for web3.js",
-  "main": "dist/index.js",
+  "main": "dist/web3-helper.js",
   "scripts": {
     "install": "npm run build",
-    "build": "babel src --minified -d dist",
+    "build": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "babel-cli": "^6.26.0",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1"
+    "babel-preset-env": "^1.6.1",
+    "rollup": "^0.57.1",
+    "rollup-plugin-babel": "^3.0.3"
   }
 }
