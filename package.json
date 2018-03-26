@@ -4,7 +4,6 @@
   "description": "Helper for web3.js",
   "main": "dist/web3-helper.js",
   "scripts": {
-    "install": "npm run build",
     "build": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
