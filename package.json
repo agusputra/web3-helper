@@ -1,6 +1,6 @@
 {
   "name": "web3-helper",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Helper for web3.js",
   "main": "dist/web3-helper.js",
   "scripts": {
