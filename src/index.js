@@ -1,14 +1,15 @@
 import Metamask from './metamask'
 import Net from './net'
 
-const web3 = global.web3;
-
 export default {
   viewAddressPath: 'https://rinkeby.etherscan.io/address',
   viewTxPath: 'https://rinkeby.etherscan.io/tx',
   getTxParams,
   ...Metamask,
-  ...Net
+  ...Net,
+  test(){
+    return 2
+  }
 }
 
 function getTxParams(publicKey, to, value, data, gasPrice, web3, cb) {
