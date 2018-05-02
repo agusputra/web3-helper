@@ -1,6 +1,6 @@
 import Metamask from './metamask'
 import Net from './net'
-console.log('HELLO :)')
+
 export default {
   viewAddressPath: 'https://rinkeby.etherscan.io/address',
   viewTxPath: 'https://rinkeby.etherscan.io/tx',

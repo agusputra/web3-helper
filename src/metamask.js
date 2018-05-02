@@ -37,7 +37,7 @@ function checkMetamask(retry) {
     if (retry && !metamaskInstalled()) {
       return setTimeout(checkInstall, 500, retry);
     }
-    checkInstall = true;
+    isCheckInstall = true;
     cbs.checkInstall.forEach(cb => setTimeout(cb));
     cbs.checkInstall = [];
   }
@@ -48,7 +48,7 @@ function checkMetamask(retry) {
     if (retry && !metamaskLogin()) {
       return setTimeout(checkLogin, 500, retry);
     }
-    checkLogin = true;
+    isCheckLogin = true;
     cbs.checkLogin.forEach(cb => setTimeout(cb));
     cbs.checkLogin = [];
   }

@@ -39,7 +39,7 @@ function checkMetamask(retry) {
     if (retry && !metamaskInstalled()) {
       return setTimeout(checkInstall, 500, retry);
     }
-    checkInstall = true;
+    isCheckInstall = true;
     cbs.checkInstall.forEach(function (cb) {
       return setTimeout(cb);
     });
@@ -52,7 +52,7 @@ function checkMetamask(retry) {
     if (retry && !metamaskLogin()) {
       return setTimeout(checkLogin, 500, retry);
     }
-    checkLogin = true;
+    isCheckLogin = true;
     cbs.checkLogin.forEach(function (cb) {
       return setTimeout(cb);
     });
@@ -107,7 +107,7 @@ function getNetwork(cb) {
 }
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-console.log('HELLO :)');
+
 var index = _extends({
   viewAddressPath: 'https://rinkeby.etherscan.io/address',
   viewTxPath: 'https://rinkeby.etherscan.io/tx',
