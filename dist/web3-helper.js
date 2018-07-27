@@ -13,15 +13,20 @@ var Metamask = {
   checkMetamask: checkMetamask,
   metamaskInstalled: metamaskInstalled,
   metamaskLogin: metamaskLogin
-};
 
-function onCheckInstall(cb) {
+  // This method will checking metamask installation first.
+  // And call the callback when metamask installed.
+  // The callback will be called immediately if checking process already done.
+};function onCheckInstall(cb) {
   if (isCheckInstall) {
     return cb();
   }
   cbs.checkInstall.push(cb);
 }
 
+// This method will checking if user login to metamask first.
+// And call the callback if user login.
+// The callback will be called immediately if checking process already done.
 function onCheckLogin(cb) {
   if (isCheckLogin) {
     return cb();
@@ -29,6 +34,8 @@ function onCheckLogin(cb) {
   cbs.checkLogin.push(cb);
 }
 
+// Trigger metamask checking for <retry> times.
+// This method will also call callback after checking process done.
 function checkMetamask(retry) {
   setTimeout(checkInstall, 0, retry);
   setTimeout(checkLogin, 0, retry);
@@ -60,6 +67,7 @@ function checkMetamask(retry) {
   }
 }
 
+// Check if metamask installed or not
 function metamaskInstalled() {
   // The line below temporary because it's not the right way to use MetaMask.
   // (The right way to use MetaMask: https://github.com/MetaMask/faq/blob/master/detecting_metamask.md#web3-deprecation)
@@ -69,6 +77,7 @@ function metamaskInstalled() {
   return false;
 }
 
+// Check if user login to metamask or not
 function metamaskLogin() {
   if (metamaskInstalled() && web3.eth.defaultAccount) {
     return true;
@@ -108,33 +117,6 @@ function getNetwork(cb) {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var index = _extends({
-  viewAddressPath: 'https://rinkeby.etherscan.io/address',
-  viewTxPath: 'https://rinkeby.etherscan.io/tx',
-  getTxParams: getTxParams
-}, Metamask, Net, {
-  test: function test() {
-    return 3;
-  }
-});
-
-function getTxParams(publicKey, to, value, data, gasPrice, web3, cb) {
-  web3.eth.getTransactionCount(publicKey, function (err, data) {
-    if (err) throw err;
-
-    var params = {
-      from: publicKey,
-      nonce: web3.toHex(data),
-      gasPrice: web3.toHex(gasPrice),
-      to: to,
-      value: web3.toHex(value),
-      data: data,
-      // EIP 155 chainId - mainnet: 1, ropsten: 3
-      chainId: 4
-    };
-
-    return cb(null, params);
-  });
-}
+var index = _extends({}, Metamask, Net);
 
 module.exports = index;

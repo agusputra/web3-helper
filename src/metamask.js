@@ -13,6 +13,9 @@ export default {
   metamaskLogin
 }
 
+// This method will checking metamask installation first.
+// And call the callback when metamask installed.
+// The callback will be called immediately if checking process already done.
 function onCheckInstall(cb) {
   if (isCheckInstall) {
     return cb();
@@ -20,6 +23,9 @@ function onCheckInstall(cb) {
   cbs.checkInstall.push(cb);
 }
 
+// This method will checking if user login to metamask first.
+// And call the callback if user login.
+// The callback will be called immediately if checking process already done.
 function onCheckLogin(cb) {
   if (isCheckLogin) {
     return cb();
@@ -27,6 +33,8 @@ function onCheckLogin(cb) {
   cbs.checkLogin.push(cb);
 }
 
+// Trigger metamask checking for <retry> times.
+// This method will also call callback after checking process done.
 function checkMetamask(retry) {
   setTimeout(checkInstall, 0, retry);
   setTimeout(checkLogin, 0, retry);
@@ -54,6 +62,7 @@ function checkMetamask(retry) {
   }
 }
 
+// Check if metamask installed or not
 function metamaskInstalled() {
   // The line below temporary because it's not the right way to use MetaMask.
   // (The right way to use MetaMask: https://github.com/MetaMask/faq/blob/master/detecting_metamask.md#web3-deprecation)
@@ -63,6 +72,7 @@ function metamaskInstalled() {
   return false;
 }
 
+// Check if user login to metamask or not
 function metamaskLogin() {
   if (metamaskInstalled() && web3.eth.defaultAccount) {
     return true;
