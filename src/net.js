@@ -8,19 +8,19 @@ function getNetwork(cb) {
   web3.version.getNetwork((err, netId) => {
     switch (netId) {
       case "1":
-        net = "Mainnet";
+        net = "mainnet";
         break;
       case "2":
-        net = "Morden";
+        net = "morden";
         break;
       case "3":
-        net = "Ropsten";
+        net = "ropsten";
         break;
       case "4":
-        net = "Rinkeby";
+        net = "rinkeby";
         break;
       case "42":
-        net = "Kovan";
+        net = "kovan";
         break;
     }
 
