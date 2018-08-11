@@ -5,6 +5,10 @@ export default {
 function getNetwork(cb) {
   let net = 'Unknown'
 
+  if (!web3) {
+    return cb(null, net);
+  }
+
   web3.version.getNetwork((err, netId) => {
     switch (netId) {
       case "1":

@@ -92,6 +92,10 @@ var Net = {
 function getNetwork(cb) {
   var net = 'Unknown';
 
+  if (!web3) {
+    return cb(null, net);
+  }
+
   web3.version.getNetwork(function (err, netId) {
     switch (netId) {
       case "1":
@@ -116,6 +120,9 @@ function getNetwork(cb) {
 }
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+// We set window.web3 to prevent error "web3 is not defined" when other code access web3 (without window.)
+window.web3 = window.web3;
 
 var index = _extends({}, Metamask, Net);
 
