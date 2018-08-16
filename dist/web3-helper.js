@@ -1,5 +1,7 @@
 'use strict';
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var isCheckInstall = false;
 var isCheckLogin = false;
 var cbs = {
@@ -12,7 +14,9 @@ var Metamask = {
   onCheckLogin: onCheckLogin,
   checkMetamask: checkMetamask,
   metamaskInstalled: metamaskInstalled,
-  metamaskLogin: metamaskLogin
+  metamaskLogin: metamaskLogin,
+  deployContract: deployContract,
+  submitTx: submitTx
 
   // This method will checking metamask installation first.
   // And call the callback when metamask installed.
@@ -83,6 +87,69 @@ function metamaskLogin() {
     return true;
   }
   return false;
+}
+
+function deployContract(Contract, byteCode, params, options, cb) {
+  var _Contract$new;
+
+  !options && (options = {});
+
+  var data = (_Contract$new = Contract.new).getData.apply(_Contract$new, _toConsumableArray(params).concat([{
+    data: byteCode
+  }]));
+
+  web3.eth.estimateGas({
+    data: data
+  }, function (err, data) {
+    if (err) {
+      return cb(err);
+    }
+
+    Contract.new.apply(Contract, _toConsumableArray(params).concat([{
+      from: options.creator,
+      gas: data + 1,
+      gasPrice: options.gasPrice || 30 * 1e9,
+      data: byteCode
+    }, function (err, data) {
+      // When creating contract, this callback will be called 2 times.
+      // The first time data.address will be undefined
+      // The second time data.address will be filled
+
+      if (err) {
+        return cb(err);
+      }
+
+      return cb(null, data);
+    }]));
+  });
+}
+
+function submitTx(contract, method, params, options, cb) {
+  var _contract$method;
+
+  !options && (options = {});
+
+  (_contract$method = contract[method]).estimateGas.apply(_contract$method, _toConsumableArray(params).concat([{
+    value: options.value
+  }, function (err, data) {
+    var _contract$method2;
+
+    if (err) {
+      return cb(err);
+    }
+
+    (_contract$method2 = contract[method]).sendTransaction.apply(_contract$method2, _toConsumableArray(params).concat([{
+      value: options.value || 0,
+      gas: data,
+      gasPrice: options.gasPrice || 30 * 1e9
+    }, function (err, data) {
+      if (err) {
+        return cb(err);
+      }
+
+      return cb(null, data);
+    }]));
+  }]));
 }
 
 var Net = {
